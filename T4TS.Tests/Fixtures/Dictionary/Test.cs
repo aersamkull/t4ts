@@ -1,20 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using T4TS.Example.Models;
 using T4TS.Tests.Fixtures.Basic;
 using T4TS.Tests.Utils;
 
-namespace T4TS.Tests.Fixtures.Enumerable
+namespace T4TS.Tests.Fixtures.Dictionary
 {
     [TestClass]
     public class Test
     {
         [TestMethod]
-        public void EnumerableModelHasExpectedOutput()
+        public void DictionaryModelHasExpectedOutput()
         {
             // Expect
             new OutputFor(
-                typeof(EnumerableModel),
-                typeof(BasicModel)
+                typeof(BasicModel),
+                typeof(DictionaryModel)
             ).ToEqual(ExpectedOutput);
         }
 
@@ -24,24 +23,18 @@ const string ExpectedOutput = @"
 ****************************************************************************/
 
 declare module T4TS {
-    /** Generated from T4TS.Tests.Fixtures.Enumerable.EnumerableModel **/
-    export interface EnumerableModel {
-        NormalProperty: number;
-        PrimitiveArray: number[];
-        PrimitiveList: number[];
-        InterfaceArray: T4TS.BasicModel[];
-        InterfaceList: T4TS.BasicModel[];
-        DeepArray: number[][];
-        DeepList: number[][];
-        Generic: string[];
-    }
     /** Generated from T4TS.Tests.Fixtures.Basic.BasicModel **/
     export interface BasicModel {
         MyProperty: number;
         SomeDateTime: string;
     }
+    /** Generated from T4TS.Tests.Fixtures.Dictionary.DictionaryModel **/
+    export interface DictionaryModel {
+        IntKey: { [name: number]: T4TS.BasicModel};
+        StringKey: { [name: string]: T4TS.BasicModel};
+        [index: number]: T4TS.BasicModel;
+    }
 }
 ";
-
     }
 }
